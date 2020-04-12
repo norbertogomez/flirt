@@ -1,0 +1,17 @@
+axon:
+  eventhandling:
+    processors:
+      amqpEvents:
+        source: myRabbitMessageSource
+        mode: SUBSCRIBING
+
+spring:
+  application:
+    name: flirt-api
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: rabbitmq
+    password: rabbitmq
+    rabbitmq-queue: DomainEvents
+    exchangeType: fanout

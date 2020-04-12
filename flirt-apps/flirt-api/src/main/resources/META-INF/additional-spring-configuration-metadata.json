@@ -1,0 +1,13 @@
+{
+  "properties": [
+    {
+      "name": "spring.rabbitmq.rabbitmq-queue",
+      "type": "java.lang.String",
+      "description": "Description for spring.rabbitmq.rabbitmq-queue."
+    },
+    {
+      "name": "spring.rabbitmq.exchangeType",
+      "type": "java.lang.String",
+      "description": "Description for spring.rabbitmq.exchangeType."
+    }
+  ] }

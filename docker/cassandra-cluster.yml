@@ -1,0 +1,20 @@
+version: "3"
+services:
+  cassandra-seed:
+    container_name: flirt-cassandra-seed-node
+    image: bitnami/cassandra:3.11.6-debian-10-r55
+    environment:
+      - "CASSANDRA_USER=cassandra"
+      - "CASSANDRA_PASSWORD=cassandra"
+    ports:
+      - "9042:9042"   # Native transport
+      - "7199:7199"   # JMX
+      - "9160:9160"   # Thrift clients
+
+  cassandra-node-1:
+    image: bitnami/cassandra:3.11.6-debian-10-r55
+    command: /bin/bash -c "echo 'Waiting for seed node' && sleep 30 && /docker-entrypoint.sh cassandra -f"
+    environment:
+      - "CASSANDRA_SEEDS=cassandra-seed-node"
+    depends_on:
+      - "cassandra-seed"

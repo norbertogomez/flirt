@@ -1,0 +1,19 @@
+version: "3"
+services:
+    rabbitmq:
+        image: rabbitmq:3.6-management
+        container_name: flirt-rabbitmq
+        hostname: flirt-shared-rabbitmq
+        environment:
+            - "RABBITMQ_DEFAULT_USER=guest"
+            - "RABBITMQ_DEFAULT_PASS=guest"
+            - "RABBITMQ_DEFAULT_VHOST=/"
+        ports:
+            - "15672:15672"
+            - "5672:5672"
+        networks:
+            - flirt-net
+
+networks:
+    flirt-net:
+        external: true
