@@ -6,9 +6,12 @@ import flirt.users.domain.User
 import org.axonframework.queryhandling.QueryGateway
 import org.axonframework.queryhandling.responsetypes.ResponseTypes
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RestController
+import java.io.Serializable
 
 @RestController
 class GetUsersController() {
@@ -16,12 +19,16 @@ class GetUsersController() {
     lateinit var queryGateway: QueryGateway
 
     @GetMapping("/users/{userId}")
-    fun findOrderById(@PathVariable("userId") userId: String): UserResponse {
+    fun findOrderById(@PathVariable("userId") userId: String): ResponseEntity<User> {
          val user : User = queryGateway.query(
             FindUserByIdQuery(userId),
             ResponseTypes.instanceOf(User::class.java)
          ).get()
 
-        return UserResponse(user.id.value, user.name.value)
+        if (user == null) {
+            return ResponseEntity.notFound().build()
+        }
+
+        return ResponseEntity.ok(user)
     }
 }

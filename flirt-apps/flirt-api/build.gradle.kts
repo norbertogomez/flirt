@@ -9,6 +9,6 @@ dependencies {
 
     implementation(project(":flirt-libs:shared"))
     implementation(project(":flirt-libs:flirt:users"))
-
+    implementation("org.springframework.boot","spring-boot-starter-web", "2.0.3.RELEASE")
     implementation("com.zaxxer", "HikariCP", hikariCPVersion)
 }
